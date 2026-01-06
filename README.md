@@ -151,6 +151,78 @@ dotnet run --project CalculatorWPF/CalculatorWPF.csproj
 
 Or simply open the solution in Visual Studio 2022 and press F5.
 
+## Docker Support
+
+The project includes Docker configuration for containerized builds and deployment.
+
+### Prerequisites for Docker
+- Docker Desktop with Windows containers enabled (on Windows)
+- Or Docker with Windows container support (on Windows Server)
+- **Note**: WPF applications require Windows containers. Linux containers cannot run WPF applications.
+
+### Building with Docker
+
+#### Using Docker Compose (Recommended)
+
+```bash
+# Build the Docker image
+docker-compose build
+
+# Build and run the container
+docker-compose up --build
+```
+
+#### Using Docker directly
+
+```bash
+# Build the image
+docker build -t calculatorwpf:latest .
+
+# Run the container
+docker run --rm calculatorwpf:latest
+```
+
+### Running Tests in Docker
+
+#### Using Docker Compose (Recommended)
+
+```bash
+# Run tests
+docker-compose run --rm test
+```
+
+#### Using Docker directly
+
+```bash
+# Build and run tests
+docker build --target test -t calculatorwpf:test .
+docker run --rm calculatorwpf:test
+```
+
+### Important Notes
+
+⚠️ **WPF GUI Limitations**: 
+- WPF applications require Windows containers and a Windows host
+- The GUI cannot be displayed in a standard Docker container without additional configuration
+- For GUI access, you may need:
+  - Windows Server with Desktop Experience
+  - Remote Desktop Protocol (RDP) access
+  - Or run the application directly on Windows (not in container)
+
+💡 **Recommended Use Cases for Docker**:
+- Building the application in CI/CD pipelines
+- Running unit tests in isolated environments
+- Creating reproducible build environments
+- For production GUI deployment, consider running directly on Windows
+
+### Docker Compose Services
+
+The `docker-compose.yml` file includes:
+- **calculatorwpf**: Main application service (runtime)
+- **test**: Test service that runs unit tests
+- Volume mounts for sample input files
+- Build configuration for the WPF application
+
 ## Project Structure
 
 ```
