@@ -3,9 +3,7 @@ using CalculatorWPF.Models;
 
 namespace CalculatorWPF.Services
 {
-    /// <summary>
-    /// Evaluates mathematical expressions with proper operator precedence
-    /// </summary>
+    // Evaluates expressions with proper operator precedence
     public class ExpressionEvaluator
     {
         private List<Token> _tokens;
@@ -17,9 +15,7 @@ namespace CalculatorWPF.Services
             _currentIndex = 0;
         }
 
-        /// <summary>
-        /// Evaluates an expression string and returns the result
-        /// </summary>
+        // Evaluates expression and returns result
         public BigInteger Evaluate(string expression)
         {
             if (string.IsNullOrWhiteSpace(expression))
@@ -33,7 +29,7 @@ namespace CalculatorWPF.Services
 
             BigInteger result = ParseExpression();
 
-            // Ensure we've consumed all tokens except the End token
+            // Make sure we parsed everything
             if (_currentIndex < _tokens.Count - 1)
             {
                 throw new InvalidOperationException($"Unexpected token at position {_tokens[_currentIndex].Position}");
@@ -42,9 +38,7 @@ namespace CalculatorWPF.Services
             return result;
         }
 
-        /// <summary>
-        /// Parses addition and subtraction (lowest precedence)
-        /// </summary>
+        // Handles + and - (lowest precedence)
         private BigInteger ParseExpression()
         {
             BigInteger left = ParseTerm();
@@ -76,9 +70,7 @@ namespace CalculatorWPF.Services
             return left;
         }
 
-        /// <summary>
-        /// Parses multiplication and division (higher precedence)
-        /// </summary>
+        // Handles * and / (higher precedence)
         private BigInteger ParseTerm()
         {
             BigInteger left = ParseFactor();
@@ -99,6 +91,7 @@ namespace CalculatorWPF.Services
                     }
                     else
                     {
+                        // Check for division by zero
                         if (right == 0)
                         {
                             throw new DivideByZeroException("Division by zero");
@@ -115,9 +108,7 @@ namespace CalculatorWPF.Services
             return left;
         }
 
-        /// <summary>
-        /// Parses a number (factor)
-        /// </summary>
+        // Reads a number
         private BigInteger ParseFactor()
         {
             if (_currentIndex >= _tokens.Count)

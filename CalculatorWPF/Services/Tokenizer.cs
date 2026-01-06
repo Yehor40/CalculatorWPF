@@ -4,9 +4,7 @@ using CalculatorWPF.Models;
 
 namespace CalculatorWPF.Services
 {
-    /// <summary>
-    /// Tokenizes mathematical expressions into a list of tokens
-    /// </summary>
+    // Converts expression string into tokens
     public class Tokenizer
     {
         private readonly string _expression;
@@ -18,9 +16,7 @@ namespace CalculatorWPF.Services
             _position = 0;
         }
 
-        /// <summary>
-        /// Tokenizes the entire expression
-        /// </summary>
+        // Breaks down expression into number and operator tokens
         public List<Token> Tokenize()
         {
             var tokens = new List<Token>();
@@ -34,17 +30,16 @@ namespace CalculatorWPF.Services
 
                 char current = _expression[_position];
 
-                // Check for operators
                 if (IsOperator(current))
                 {
-                    // Handle unary minus (negative numbers)
+                    // Handle negative numbers (unary minus)
                     if (current == '-' && (tokens.Count == 0 || tokens.Last().Type == TokenType.Operator))
                     {
                         tokens.Add(ReadNumber(true));
                     }
+                    // Skip unary plus
                     else if (current == '+' && (tokens.Count == 0 || tokens.Last().Type == TokenType.Operator))
                     {
-                        // Unary plus - just skip it
                         _position++;
                     }
                     else
@@ -71,6 +66,7 @@ namespace CalculatorWPF.Services
             return tokens;
         }
 
+        // Reads a number from current position
         private Token ReadNumber(bool isNegative)
         {
             int startPos = _position;
@@ -79,8 +75,8 @@ namespace CalculatorWPF.Services
             if (isNegative)
             {
                 sb.Append('-');
-                _position++; // Skip the minus sign
-                SkipWhitespace(); // Allow space after minus
+                _position++;
+                SkipWhitespace();
             }
 
             if (_position >= _expression.Length || !char.IsDigit(_expression[_position]))
@@ -94,7 +90,6 @@ namespace CalculatorWPF.Services
                 _position++;
             }
 
-            // Check if there's a decimal point following
             if (_position < _expression.Length && _expression[_position] == '.')
             {
                 throw new InvalidOperationException($"Invalid character at position {_position}: '.'. Decimal numbers are not supported.");
@@ -109,6 +104,7 @@ namespace CalculatorWPF.Services
             return new Token(TokenType.Number, startPos, value: value);
         }
 
+        // Skips spaces and tabs
         private void SkipWhitespace()
         {
             while (_position < _expression.Length && char.IsWhiteSpace(_expression[_position]))
@@ -117,6 +113,7 @@ namespace CalculatorWPF.Services
             }
         }
 
+        // Checks if character is a math operator
         private static bool IsOperator(char c)
         {
             return c == '+' || c == '-' || c == '*' || c == '/';

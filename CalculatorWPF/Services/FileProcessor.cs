@@ -2,9 +2,7 @@ using System.IO;
 
 namespace CalculatorWPF.Services
 {
-    /// <summary>
-    /// Processes mathematical expressions from input files asynchronously
-    /// </summary>
+    // Processes expressions from file line by line
     public class FileProcessor
     {
         private readonly CalculatorEngine _calculator;
@@ -14,9 +12,7 @@ namespace CalculatorWPF.Services
             _calculator = new CalculatorEngine();
         }
 
-        /// <summary>
-        /// Processes an input file and writes results to an output file asynchronously
-        /// </summary>
+        // Reads input file, calculates each line, writes to output file
         public async Task<ProcessingResult> ProcessFileAsync(string inputFilePath, string outputFilePath, IProgress<int>? progress = null)
         {
             try
@@ -36,14 +32,13 @@ namespace CalculatorWPF.Services
                     return new ProcessingResult(false, $"Input file not found: {inputFilePath}");
                 }
 
-                // Ensure output directory exists
+                // Create output directory if needed
                 string? outputDirectory = Path.GetDirectoryName(outputFilePath);
                 if (!string.IsNullOrEmpty(outputDirectory) && !Directory.Exists(outputDirectory))
                 {
                     Directory.CreateDirectory(outputDirectory);
                 }
 
-                // Read all lines asynchronously
                 string[] lines = await File.ReadAllLinesAsync(inputFilePath);
                 var results = new List<string>();
                 int totalLines = lines.Length;
@@ -56,7 +51,6 @@ namespace CalculatorWPF.Services
                     {
                         if (string.IsNullOrWhiteSpace(line))
                         {
-                            // Ignore empty lines
                             results.Add(string.Empty);
                         }
                         else
@@ -70,7 +64,6 @@ namespace CalculatorWPF.Services
                     progress?.Report((int)((double)processedLines / totalLines * 100));
                 }
 
-                // Write results asynchronously
                 await File.WriteAllLinesAsync(outputFilePath, results);
 
                 return new ProcessingResult(true, $"Successfully processed {totalLines} line(s)", totalLines, processedLines);
@@ -90,9 +83,7 @@ namespace CalculatorWPF.Services
         }
     }
 
-    /// <summary>
-    /// Result of file processing operation
-    /// </summary>
+    // Result of file processing operation
     public class ProcessingResult
     {
         public bool Success { get; }

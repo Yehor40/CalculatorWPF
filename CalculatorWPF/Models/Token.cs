@@ -2,9 +2,7 @@ using System.Numerics;
 
 namespace CalculatorWPF.Models
 {
-    /// <summary>
-    /// Represents a token in a mathematical expression
-    /// </summary>
+    // Represents a single element in an expression (number, operator, or end marker)
     public class Token
     {
         public TokenType Type { get; set; }
@@ -21,9 +19,7 @@ namespace CalculatorWPF.Models
         }
     }
 
-    /// <summary>
-    /// Types of tokens that can appear in an expression
-    /// </summary>
+    // Token types
     public enum TokenType
     {
         Number,

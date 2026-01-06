@@ -2,9 +2,7 @@ using System.Numerics;
 
 namespace CalculatorWPF.Services
 {
-    /// <summary>
-    /// Main calculator engine that provides a high-level interface for calculations
-    /// </summary>
+    // Main calculator interface
     public class CalculatorEngine
     {
         private readonly ExpressionEvaluator _evaluator;
@@ -14,9 +12,7 @@ namespace CalculatorWPF.Services
             _evaluator = new ExpressionEvaluator();
         }
 
-        /// <summary>
-        /// Calculates the result of an expression
-        /// </summary>
+        // Calculates expression and returns result or error message
         public string Calculate(string expression)
         {
             try
@@ -43,9 +39,7 @@ namespace CalculatorWPF.Services
             }
         }
 
-        /// <summary>
-        /// Validates if an expression is valid without evaluating it
-        /// </summary>
+        // Checks if expression is valid without calculating
         public bool IsValidExpression(string expression, out string errorMessage)
         {
             try

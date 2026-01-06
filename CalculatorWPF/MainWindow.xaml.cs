@@ -6,9 +6,6 @@ using CalculatorWPF.Services;
 
 namespace CalculatorWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly CalculatorEngine _calculator;
@@ -22,10 +19,8 @@ namespace CalculatorWPF
             _fileProcessor = new FileProcessor();
             _isProcessing = false;
 
-            // Enable Enter key to calculate
             ExpressionTextBox.KeyDown += ExpressionTextBox_KeyDown;
             
-            // Set default output file path
             OutputFileTextBox.Text = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.Desktop), 
                 "output.txt");
@@ -51,14 +46,11 @@ namespace CalculatorWPF
                     return;
                 }
 
-                // Disable button during calculation
                 CalculateButton.IsEnabled = false;
                 ResultTextBlock.Text = "Calculating...";
 
-                // Perform calculation asynchronously
                 string result = await Task.Run(() => _calculator.Calculate(expression));
 
-                // Update UI on UI thread
                 ResultTextBlock.Text = result;
             }
             catch (Exception ex)
@@ -153,7 +145,6 @@ namespace CalculatorWPF
                     return;
                 }
 
-                // Disable controls during processing
                 _isProcessing = true;
                 ProcessButton.IsEnabled = false;
                 BrowseInputButton.IsEnabled = false;
@@ -163,17 +154,14 @@ namespace CalculatorWPF
                 ProcessingProgressBar.Value = 0;
                 ProgressTextBlock.Text = "Processing...";
 
-                // Create progress reporter
                 var progress = new Progress<int>(percent =>
                 {
                     ProcessingProgressBar.Value = percent;
                     ProgressTextBlock.Text = $"Processing... {percent}%";
                 });
 
-                // Process file asynchronously
                 ProcessingResult result = await _fileProcessor.ProcessFileAsync(inputFile, outputFile, progress);
 
-                // Show result
                 if (result.Success)
                 {
                     ProgressTextBlock.Text = $"Complete - {result.ProcessedLines} line(s) processed";
@@ -195,7 +183,6 @@ namespace CalculatorWPF
             }
             finally
             {
-                // Re-enable controls
                 _isProcessing = false;
                 ProcessButton.IsEnabled = true;
                 BrowseInputButton.IsEnabled = true;
