@@ -44,7 +44,11 @@
                                  Height="35"
                                  VerticalContentAlignment="Center"
                                  BorderBrush="#BDC3C7"
-                                 BorderThickness="2"/>
+                                 BorderThickness="2"
+                                 AcceptsReturn="False"
+                                 HorizontalScrollBarVisibility="Disabled"
+                                 VerticalScrollBarVisibility="Disabled"
+                                 TextWrapping="NoWrap"/>
                         <TextBlock Text="Example: 2 + 3 * 2" 
                                    FontSize="11" 
                                    Foreground="#7F8C8D" 
