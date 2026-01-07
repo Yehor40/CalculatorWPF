@@ -36,19 +36,19 @@
                     </Grid.RowDefinitions>
 
                     <!-- Expression Input -->
-                    <StackPanel Grid.Row="0" Margin="0,0,0,20">
-                        <TextBlock Text="Enter Expression:" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <StackPanel Grid.Row="0" Margin="0,0,0,15">
+                        <TextBlock Text="Enter Expression:" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,6"/>
                         <TextBox x:Name="ExpressionTextBox" 
                                  FontSize="16" 
-                                 Padding="10"
-                                 Height="40"
+                                 Padding="8"
+                                 Height="35"
                                  VerticalContentAlignment="Center"
                                  BorderBrush="#BDC3C7"
                                  BorderThickness="2"/>
                         <TextBlock Text="Example: 2 + 3 * 2" 
                                    FontSize="11" 
                                    Foreground="#7F8C8D" 
-                                   Margin="0,5,0,0"/>
+                                   Margin="0,4,0,0"/>
                     </StackPanel>
 
                     <!-- Calculate Button -->
@@ -93,17 +93,17 @@
                     </Button>
 
                     <!-- Result -->
-                    <StackPanel Grid.Row="2" Margin="0,0,0,20">
-                        <TextBlock Text="Result:" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <StackPanel Grid.Row="2" Margin="0,0,0,15">
+                        <TextBlock Text="Result:" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,6"/>
                         <Border Background="#ECF0F1" 
                                 BorderBrush="#BDC3C7" 
                                 BorderThickness="2"
                                 CornerRadius="5"
-                                Padding="15"
-                                MinHeight="60">
+                                Padding="12"
+                                MinHeight="50">
                             <TextBlock x:Name="ResultTextBlock" 
                                        Text="Enter an expression and click Calculate"
-                                       FontSize="18"
+                                       FontSize="16"
                                        TextWrapping="Wrap"
                                        VerticalAlignment="Center"/>
                         </Border>
@@ -115,9 +115,9 @@
                             BorderBrush="#2196F3" 
                             BorderThickness="1"
                             CornerRadius="5"
-                            Padding="15"
-                            Margin="0,20,0,0"
-                            MaxHeight="300"
+                            Padding="12"
+                            Margin="0,15,0,0"
+                            MaxHeight="280"
                             VerticalAlignment="Top">
                         <StackPanel>
                             <TextBlock Text="Calculator Information:" FontWeight="SemiBold" Margin="0,0,0,8"/>
